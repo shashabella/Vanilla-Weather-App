@@ -12,69 +12,83 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@700&family=Roboto:wght@900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@700&family=Roboto+Flex:wght@700&family=Roboto+Mono:wght@700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="weather-app">
-        <form class="search-form">
+      <div class="weather-app-wrapper">
+        <div class="weather-app">
+          <form class="search-form">
+            <div class="row">
+              <div class="col-6">
+                <input
+                  type="search"
+                  placeholder="Type a City..."
+                  class="form-control"
+                  autocomplete="off"
+                  autofocus="on"
+                />
+              </div>
+              <div class="col-3">
+                <input
+                  type="submit"
+                  value="Search"
+                  class="form-control btn btn-primary shadow-sm"
+                />
+              </div>
+              <div class="col-3">
+                <button class="btn btn-primary currentTemp" type="submit">
+                  Current
+                </button>
+              </div>
+            </div>
+          </form>
+          <h1 class="city">Sydney NSW, Australlia</h1>
+          <ul class="condition">
+            <li class="weekday">Wednesday 22:00</li>
+            <li class="cloud">Partly Cloudy</li>
+          </ul>
           <div class="row">
-            <div class="col-9">
-              <input
-                type="search"
-                placeholder="Type a City..."
-                class="form-control"
-                autocomplete="off"
-                autofocus="on"
-              />
-            </div>
-            <div class="col-3">
-              <input
-                type="submit"
-                value="Search"
-                class="form-control btn btn-primary shadow-sm"
-              />
-            </div>
-          </div>
-        </form>
-        <h1 class="city">Sydney NSW, Australlia</h1>
-        <ul class="condition">
-          <li>Wednesday 22:00</li>
-          <li>Partly Cloudy</li>
-        </ul>
-        <div class="row">
-          <div class="col-6">
-            <img
-              src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-              alt="Cloudy icon"
-              class="weather-icon"
-            />
+            <div class="col-6">
+              <div class="d-flex weather-temperature">
+                <img
+                  src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+                  alt="Cloudy icon"
+                  class="weather-icon"
+                />
 
-            <span class="temperature">19</span>
-            <span class="units">°C | <a href="">°F</a></span>
-          </div>
+                <span class="temperature">19</span>
+                <span class="units">°C | <a href="" class="fahren">°F</a></span>
+              </div>
+            </div>
 
-          <div class="col-6">
-            <ul class="type">
-              <li>Precipitation: 0%</li>
-              <li>Humidity: 77%</li>
-              <li>Wind: 8 km/h</li>
-            </ul>
+            <div class="col-6">
+              <ul class="type">
+                <li>
+                  Precipitation: <span class="prec">0</span><span>%</span>
+                </li>
+                <li>Humidity: <span class="hum">77</span><span>%</span></li>
+                <li>Wind: <span class="win">8</span><span> km/h</span></li>
+              </ul>
+            </div>
           </div>
         </div>
+        <small>
+          <a
+            href="https://github.com/shashabella/Vanilla-Weather-App"
+            target="_blank"
+            class="source-code"
+            >Open-source code</a
+          >
+          by Ayesha Issah
+        </small>
       </div>
-      <small>
-        <a
-          href="https://github.com/shashabella/Vanilla-Weather-App"
-          target="_blank"
-          class="source-code"
-          >Open-source code</a
-        >
-        by Ayesha Issah
-      </small>
     </div>
     <script src="index.js"></script>
   </body>

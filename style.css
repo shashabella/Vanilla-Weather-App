@@ -5,7 +5,7 @@ body {
 .city {
   color: #70757a;
   font-size: 24px;
-  font-weight: 100;
+  font-weight: 100px;
   line-height: 28px;
   margin: 0;
 }
@@ -21,17 +21,19 @@ body {
 li {
   color: #70757a;
   font-size: 16px;
-  font-weight: 100;
+  font-weight: 100px;
   height: 19px;
   line-height: 1;
   list-style: none;
 }
+.weather-app-wrapper {
+  max-width: 600px;
+  margin: 20px auto;
+}
 .weather-app {
   border: 1px solid #dadde1;
   padding: 15px;
-  margin: 20px auto;
   border-radius: 10px;
-  max-width: 600px;
 }
 .weather-icon {
   height: 64px;
@@ -45,11 +47,11 @@ li {
 }
 .units {
   position: relative;
-  top: -34px;
+  top: 6px;
 }
 .search-form {
   margin-bottom: 20px;
 }
-.source-code {
-  width: auto;
+.fahren {
+  text-decoration: none;
 }
