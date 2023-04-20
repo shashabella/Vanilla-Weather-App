@@ -24,8 +24,20 @@ function searchCity(event) {
 
     let displayTemp = Math.round(response.data.main.temp);
     let displayCity = response.data.name;
+    let descriptionElement = document.querySelector(".description");
+    let showHumidity = document.querySelector(".hum");
+    let showWind = document.querySelector(".win");
     let temp = document.querySelector(".temperature");
+    let iconElement = document.querySelector(".weather-icon");
     temp.innerHTML = `${displayTemp}`;
+    descriptionElement.innerHTML = response.data.weather[0].description;
+    showHumidity.innerHTML = response.data.main.humidity;
+    showWind.innerHTML = Math.round(response.data.wind.speed);
+    iconElement.setAttribute(
+      "src",
+      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    iconElement.setAttribute("alt", response.data.weather[0].description);
     if (inputSearch.value) {
       h1.innerHTML = ` ${displayCity}`;
     } else {
@@ -53,19 +65,26 @@ function showPosition(position) {
     console.log(response.data.main.temp);
     let displayCurrentTemp = Math.round(response.data.main.temp);
     let displayCurrentCity = response.data.name;
-    let displayCurrentCloud = response.data.clouds.all;
+    let displayCurrentDescription = response.data.weather[0].description;
+    let iconEmoji = document.querySelector(".weather-icon");
 
     let displayCurrentHumidity = response.data.main.humidity;
     let displayCurrentWind = Math.round(response.data.wind.speed);
     let currentButton = document.querySelector(".temperature");
     let currentCityButton = document.querySelector(".city");
+    let currentDescriptionButton = document.querySelector(".description");
 
     let currentHumidityButton = document.querySelector(".hum");
     let currentWindButton = document.querySelector(".win");
-    let currentCloudButton = document.querySelector(".cloud");
+
     currentCityButton.innerHTML = `${displayCurrentCity}`;
     currentButton.innerHTML = `${displayCurrentTemp}`;
-    currentCloudButton = `${displayCurrentCloud}`;
+    currentDescriptionButton.innerHTML = `${displayCurrentDescription}`;
+    iconEmoji.setAttribute(
+      "src",
+      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    iconEmoji.setAttribute("alt", response.data.weather[0].description);
 
     currentHumidityButton.innerHTML = `${displayCurrentHumidity}`;
     currentWindButton.innerHTML = `${displayCurrentWind}`;
