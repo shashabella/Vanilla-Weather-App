@@ -47,7 +47,6 @@ function searchCity(event) {
   }
   axios.get(apiUrl1).then(showTemperature);
 }
-
 function showFahrenTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector(".temperature");
@@ -75,51 +74,3 @@ fahren.addEventListener("click", showFahrenTemperature);
 
 let celcius = document.querySelector("#celcius");
 celcius.addEventListener("click", showCelciusTemperature);
-
-function showPosition(position) {
-  console.log(position);
-
-  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let apiKey = "5981bb6e099bf047fb0ade85502f44fa";
-  let units = "metric";
-
-  let apiUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
-
-  function showTemperature(response) {
-    console.log(response.data);
-    console.log(response.data.main.temp);
-    let displayCurrentTemp = Math.round(response.data.main.temp);
-    let displayCurrentCity = response.data.name;
-    let displayCurrentDescription = response.data.weather[0].description;
-    let iconEmoji = document.querySelector(".weather-icon");
-
-    let displayCurrentHumidity = response.data.main.humidity;
-    let displayCurrentWind = Math.round(response.data.wind.speed);
-    let currentButton = document.querySelector(".temperature");
-    let currentCityButton = document.querySelector(".city");
-    let currentDescriptionButton = document.querySelector(".description");
-
-    let currentHumidityButton = document.querySelector(".hum");
-    let currentWindButton = document.querySelector(".win");
-
-    currentCityButton.innerHTML = `${displayCurrentCity}`;
-    currentButton.innerHTML = `${displayCurrentTemp}`;
-    currentDescriptionButton.innerHTML = `${displayCurrentDescription}`;
-    iconEmoji.setAttribute(
-      "src",
-      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
-    iconEmoji.setAttribute("alt", response.data.weather[0].description);
-
-    currentHumidityButton.innerHTML = `${displayCurrentHumidity}`;
-    currentWindButton.innerHTML = `${displayCurrentWind}`;
-  }
-  axios.get(apiUrl).then(showTemperature);
-}
-
-let buttonClick = document.querySelector(".currentTemp");
-buttonClick.addEventListener("click", function () {
-  navigator.geolocation.getCurrentPosition(showPosition);
-});
