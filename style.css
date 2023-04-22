@@ -53,6 +53,13 @@ li {
 .search-form {
   margin-bottom: 20px;
 }
-.fahren {
+#fahren {
   text-decoration: none;
+}
+#celcius {
+  text-decoration: none;
+}
+.active {
+  color: rgb(33, 33, 33);
+  cursor: default;
 }

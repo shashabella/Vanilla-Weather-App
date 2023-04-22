@@ -20,8 +20,6 @@ function searchCity(event) {
   let units1 = "metric";
   let apiUrl1 = `${apiLastpoint}q=${cityName}&appid=${apiKey1}&units=${units1}`;
   function showTemperature(response) {
-    console.log(response.data);
-
     let displayTemp = Math.round(response.data.main.temp);
     let displayCity = response.data.name;
     let descriptionElement = document.querySelector(".description");
@@ -29,6 +27,9 @@ function searchCity(event) {
     let showWind = document.querySelector(".win");
     let temp = document.querySelector(".temperature");
     let iconElement = document.querySelector(".weather-icon");
+
+    celciusTemperature = response.data.main.temp;
+
     temp.innerHTML = `${displayTemp}`;
     descriptionElement.innerHTML = response.data.weather[0].description;
     showHumidity.innerHTML = response.data.main.humidity;
@@ -46,8 +47,34 @@ function searchCity(event) {
   }
   axios.get(apiUrl1).then(showTemperature);
 }
+
+function showFahrenTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".temperature");
+  celcius.classList.remove("active");
+  fahren.classList.add("active");
+  let fahrenTemperature = (celciusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenTemperature);
+}
+
+function showCelciusTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".temperature");
+  celcius.classList.add("active");
+  fahren.classList.remove("active");
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
+}
+
+let celciusTemperature = null;
+
 let form = document.querySelector(".search-form");
 form.addEventListener("submit", searchCity);
+
+let fahren = document.querySelector("#fahren");
+fahren.addEventListener("click", showFahrenTemperature);
+
+let celcius = document.querySelector("#celcius");
+celcius.addEventListener("click", showCelciusTemperature);
 
 function showPosition(position) {
   console.log(position);
