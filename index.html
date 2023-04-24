@@ -24,12 +24,13 @@
     <div class="container">
       <div class="weather-app-wrapper">
         <div class="weather-app">
-          <form class="search-form">
+          <form id="search-form">
             <div class="row">
               <div class="col-9">
                 <input
                   type="search"
                   placeholder="Type a City..."
+                  id="inputSearch"
                   class="form-control"
                   autocomplete="off"
                   autofocus="on"
@@ -44,21 +45,17 @@
               </div>
             </div>
           </form>
-          <h1 class="city">Sydney NSW, Australlia</h1>
+          <h1 id="city"></h1>
           <ul class="condition">
-            <li>Last updated: <span class="weekday"></span></li>
-            <li class="description">Partly Cloudy</li>
+            <li>Last updated: <span id="date"></span></li>
+            <li id="description">Partly Cloudy</li>
           </ul>
           <div class="row">
             <div class="col-6">
               <div class="d-flex weather-temperature">
-                <img
-                  src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-                  alt="Cloudy icon"
-                  class="weather-icon"
-                />
+                <img src="" alt="Cloudy icon" id="weather-icon" />
 
-                <span class="temperature">19</span>
+                <span id="temperature">19</span>
                 <span class="units"
                   ><a href="" id="celcius" class="active">°C</a> |
                   <a href="" id="fahren">°F</a></span
@@ -68,8 +65,8 @@
 
             <div class="col-6">
               <ul class="type">
-                <li>Humidity: <span class="hum">77</span><span>%</span></li>
-                <li>Wind: <span class="win">8</span><span> km/h</span></li>
+                <li>Humidity: <span id="humidity"></span><span>%</span></li>
+                <li>Wind: <span id="wind"></span><span> km/h</span></li>
               </ul>
             </div>
           </div>

@@ -1,55 +1,52 @@
-let now = new Date();
-
-let li = document.querySelector(".weekday");
-let hour = now.getHours();
-let minutes = now.getMinutes();
-
-let days = ["Sun", "Tue", "Wed", "Thur", "Fri", "Sat"];
-let day = days[now.getDay()];
-
-li.innerHTML = `${day} ${hour}:${minutes}`;
-
-function searchCity(event) {
-  event.preventDefault();
-  let inputSearch = document.querySelector(".form-control");
-  let h1 = document.querySelector(".city");
-
-  let apiLastpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let cityName = inputSearch.value;
-  let apiKey1 = "5981bb6e099bf047fb0ade85502f44fa";
-  let units1 = "metric";
-  let apiUrl1 = `${apiLastpoint}q=${cityName}&appid=${apiKey1}&units=${units1}`;
-  function showTemperature(response) {
-    let displayTemp = Math.round(response.data.main.temp);
-    let displayCity = response.data.name;
-    let descriptionElement = document.querySelector(".description");
-    let showHumidity = document.querySelector(".hum");
-    let showWind = document.querySelector(".win");
-    let temp = document.querySelector(".temperature");
-    let iconElement = document.querySelector(".weather-icon");
-
-    celciusTemperature = response.data.main.temp;
-
-    temp.innerHTML = `${displayTemp}`;
-    descriptionElement.innerHTML = response.data.weather[0].description;
-    showHumidity.innerHTML = response.data.main.humidity;
-    showWind.innerHTML = Math.round(response.data.wind.speed);
-    iconElement.setAttribute(
-      "src",
-      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
-    iconElement.setAttribute("alt", response.data.weather[0].description);
-    if (inputSearch.value) {
-      h1.innerHTML = ` ${displayCity}`;
-    } else {
-      h1.innerHTML = null;
-    }
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  if (hours < 0) {
+    hours = `0${hours}`;
   }
-  axios.get(apiUrl1).then(showTemperature);
+  if (minutes < 0) {
+    minutes = `0${minutes}`;
+  }
+  let days = ["Sun", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  let day = days[date.getDay()];
+  return `${day}, ${hours}:${minutes}`;
+}
+function showTemperature(response) {
+  console.log(response);
+  let cityElement = document.querySelector("#city");
+  let dateElement = document.querySelector("#date");
+  let descriptionElement = document.querySelector("#description");
+  let iconElement = document.querySelector("#weather-icon");
+  let temperatureElement = document.querySelector("#temperature");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  celciusTemperature = response.data.main.temp;
+  cityElement.innerHTML = response.data.name;
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+}
+function searchCity(city) {
+  let apiKey = "5981bb6e099bf047fb0ade85502f44fa";
+  let apiUrl = `https:api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showTemperature);
+}
+function handleSubmit(event) {
+  event.preventDefault();
+  let inputSearchElement = document.querySelector("#inputSearch");
+  searchCity(inputSearchElement.value);
 }
 function showFahrenTemperature(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector(".temperature");
+  let temperatureElement = document.querySelector("#temperature");
   celcius.classList.remove("active");
   fahren.classList.add("active");
   let fahrenTemperature = (celciusTemperature * 9) / 5 + 32;
@@ -58,7 +55,7 @@ function showFahrenTemperature(event) {
 
 function showCelciusTemperature(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector(".temperature");
+  let temperatureElement = document.querySelector("#temperature");
   celcius.classList.add("active");
   fahren.classList.remove("active");
   temperatureElement.innerHTML = Math.round(celciusTemperature);
@@ -66,11 +63,13 @@ function showCelciusTemperature(event) {
 
 let celciusTemperature = null;
 
-let form = document.querySelector(".search-form");
-form.addEventListener("submit", searchCity);
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
 let fahren = document.querySelector("#fahren");
 fahren.addEventListener("click", showFahrenTemperature);
 
 let celcius = document.querySelector("#celcius");
 celcius.addEventListener("click", showCelciusTemperature);
+
+searchCity("New York");
