@@ -12,6 +12,42 @@ function formatDate(timestamp) {
   let day = days[date.getDay()];
   return `${day}, ${hours}:${minutes}`;
 }
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon", "Tues"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+            
+              <div class="col-2">
+                <div class="weather-forecast-date">${day}</div>
+                <img
+                  src="https://openweathermap.org/img/wn/02n@2x.png"
+                  alt=""
+                  width="42"
+                />
+                <div class="weather-forecast-temperature">
+                  <span class="weather-forecast-temperature-max">18°</span
+                  ><span class="weather-forecast-temperature-min">12°</span>
+                </div>
+              </div>
+            
+          `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+function getForecast(coordinates) {
+  let apiKey = "1d08988o9143b06a92ba305409315ft5";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=38.71667&lon=-9.13333&key=1d08988o9143b06a92ba305409315ft5&units=metric`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
 function showTemperature(response) {
   console.log(response);
   let cityElement = document.querySelector("#city");
@@ -21,6 +57,7 @@ function showTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
+
   celciusTemperature = response.data.main.temp;
   cityElement.innerHTML = response.data.name;
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
@@ -33,6 +70,8 @@ function showTemperature(response) {
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
+
+  getForecast(response.data.coord);
 }
 function searchCity(city) {
   let apiKey = "5981bb6e099bf047fb0ade85502f44fa";
